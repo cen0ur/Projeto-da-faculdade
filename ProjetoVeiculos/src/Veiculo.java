@@ -13,6 +13,21 @@ public abstract class Veiculo {
         this.tipo = tipo;
     }
 
+    public String getModelo() {
+    return modelo;
+
+    }
+
+    public String getFabricante() {
+    return fabricante;
+
+    }
+
+    public int getAnoFabricacao() {
+    return anoFabricacao;
+
+    }
+
     public String getStatus() {
         return status;
     }

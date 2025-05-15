@@ -18,7 +18,7 @@ public class Main {
             System.out.println("0. Sair");
             System.out.print("Opção: ");
             opcao = scanner.nextInt();
-            scanner.nextLine(); // limpar buffer
+            scanner.nextLine(); 
 
             switch (opcao) {
                 case 1 -> cadastrarVeiculo();
