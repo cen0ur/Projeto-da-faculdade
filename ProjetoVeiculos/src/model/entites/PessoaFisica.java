@@ -1,4 +1,7 @@
+package model.entites;
+
 public class PessoaFisica extends Cliente {
+
     private String cpf;
 
     public PessoaFisica(String nome, String contato, String cpf) {

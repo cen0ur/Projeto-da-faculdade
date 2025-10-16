@@ -1,4 +1,7 @@
-public abstract class Cliente {
+package model.entites;
+
+public class Cliente {
+
     private String nome;
     private String contato;
 
@@ -15,5 +18,7 @@ public abstract class Cliente {
         return contato;
     }
 
-    public abstract void exibirInfo();
+    public void exibirInfo() {
+        System.out.println("Nome: " + nome + ", Contato: " + contato);
+    }
 }
