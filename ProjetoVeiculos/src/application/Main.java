@@ -1,10 +1,11 @@
 package application;
 
-import model.entites.*;
+import model.services.Concessionaria;
+
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws Throwable {
+    public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
         Concessionaria concessionaria = new Concessionaria();
@@ -16,26 +17,26 @@ public class Main {
             System.out.println("3. Exibir veículos");
             System.out.println("4. Exibir clientes");
             System.out.println("5. Deletar cliente por nome");
-            System.out.println("6. Deletar veículo por modelo"); // NOVA OPÇÃO
+            System.out.println("6. Deletar veículo por modelo");
             System.out.println("0. Sair");
             System.out.print("Opção: ");
             opcao = sc.nextInt();
             sc.nextLine();
 
             switch (opcao) {
-                case 1:
+                case 1 -> {
                     System.out.print("Tipo (carro/moto): ");
                     String tipo = sc.nextLine().toLowerCase();
+                    System.out.print("Marca: ");
+                    String marca = sc.nextLine();
                     System.out.print("Modelo: ");
                     String modelo = sc.nextLine();
-                    System.out.print("Fabricante: ");
-                    String fabricante = sc.nextLine();
                     System.out.print("Ano de fabricação: ");
                     int ano = sc.nextInt();
                     sc.nextLine();
-                    concessionaria.cadastrarVeiculo(tipo, modelo, fabricante, ano);
-                    break;
-                case 2:
+                    concessionaria.cadastrarVeiculo(tipo, marca, modelo, ano);
+                }
+                case 2 -> {
                     System.out.print("Tipo (pf/pj): ");
                     String tipoCliente = sc.nextLine().toLowerCase();
                     System.out.print("Nome: ");
@@ -45,30 +46,26 @@ public class Main {
                     System.out.print("Documento: ");
                     String documento = sc.nextLine();
                     concessionaria.cadastrarCliente(tipoCliente, nome, contato, documento);
-                    break;
-                case 3:
-                    concessionaria.exibirVeiculos();
-                    break;
-                case 4:
-                    concessionaria.exibirClientes();
-                    break;
-                case 5:
+                }
+                case 3 -> concessionaria.exibirVeiculos();
+                case 4 -> concessionaria.exibirClientes();
+                case 5 -> {
                     System.out.print("Digite o nome do cliente que deseja deletar: ");
-                    nome = sc.nextLine();
+                    String nome = sc.nextLine();
                     concessionaria.deletarClientePorNome(nome);
-                    break;
-                case 6:
+                }
+                case 6 -> {
                     System.out.print("Digite o modelo do veículo que deseja deletar: ");
-                    modelo = sc.nextLine();
+                    String modelo = sc.nextLine();
                     concessionaria.deletarPorModelo(modelo);
-                    break;
-                case 0:
-                    System.out.println("Saindo...");
-                    break;
-                default:
-                    System.out.println("Opção inválida!");
+                }
+                case 0 -> System.out.println("Saindo...");
+                default -> System.out.println("Opção inválida!");
             }
         } while (opcao != 0);
+
+        sc.close();
     }
 }
+
 
