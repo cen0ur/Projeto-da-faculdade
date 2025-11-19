@@ -1,11 +1,14 @@
 package application;
 
+import db.DatabaseSetup;
 import model.services.Concessionaria;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        DatabaseSetup.criarTabelas();
 
         Scanner sc = new Scanner(System.in);
         Concessionaria concessionaria = new Concessionaria();

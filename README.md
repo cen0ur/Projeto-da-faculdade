@@ -1,15 +1,15 @@
 # 🚗 Concessionária
 
-Projeto em **Java** que simula o funcionamento de uma **concessionária**, permitindo gerenciar **clientes e veículos** (carros e motos) de forma simples e organizada, utilizando **Programação Orientada a Objetos (POO)**.
+Projeto em **Java** que simula o funcionamento de uma **concessionária**, permitindo gerenciar **clientes e veículos** (carros e motos) de forma simples e organizada, utilizando **Java, JDBC e PostgreSQL hospedado no NeonDB.**.
 
 ---
 
 ## 📋 Sumário
 - [Sobre o Projeto](#-sobre-o-projeto)
-- [Funcionalidades](#-funcionalidades)
+- [Pré-Requisitos](#-funcionalidades)
 - [Estrutura do Projeto](#-estrutura-do-projeto)
+- [Descrição das Classes](#-estrutura-do-projeto)
 - [Conceitos Utilizados](#-conceitos-utilizados)
-- [Como Executar](#-como-executar)
 
 ---
 
@@ -20,54 +20,109 @@ O sistema permite:
 - Cadastrar veículos (carros e motos);
 - Listar clientes e veículos;
 - Remover clientes e veículos;
-- Toda lógica está organizada em **classes específicas** e **delegada à Concessionaria**, mantendo o `Main` apenas como interface com o usuário.
+- Criar tabelas automaticamente ao iniciar
 
 ---
 
-## ⚙️ Funcionalidades
-| Funcionalidade | Status |
-|----------------|--------|
-| Cadastro de clientes (PF/PJ) | ✅ Implementado |
-| Cadastro de veículos (Carro/Moto) | ✅ Implementado |
-| Listagem de clientes | ✅ Implementado |
-| Listagem de veículos | ✅ Implementado |
-| Remoção de clientes por nome | ✅ Implementado |
-| Remoção de veículos por modelo | ✅ Implementado |
+## 📌 Pré-Requisitos
+
+Antes de rodar o projeto, certifique-se de ter:
+
+| Requisito | Obrigatório | Observação |
+|----------|------------|------------|
+| Java JDK 17+ | ✔ | Pode usar 21, 22, 23, 24 |
+| Conexão com internet | ✔ | Banco é remoto |
+| Conta no NeonDB | ✔ | Banco já configurado |
+| IntelliJ | Opcional | Pode rodar pelo terminal |
 
 ---
-
 ## 🏗️ Estrutura do Projeto
 
 ```bash
 src/
 ├── application/
-│ └── Main.java
+│   └── Main.java
+├── db/
+│   └── ConexaoDb.java
+│   └── DatabaseSetup.java
 ├── model/
-│ └── entites/
-│ ├── Cliente.java
-│ ├── PessoaFisica.java
-│ ├── PessoaJuridica.java
-│ ├── Veiculo.java
-│ ├── Carro.java
-│ ├── Moto.java
-│ └── Concessionaria.java
-
-
-**Descrição das classes:**
-- `Cliente`: classe base para clientes.  
-- `PessoaFisica` / `PessoaJuridica`: subclasses de `Cliente` com CPF ou CNPJ.  
-- `Veiculo`: classe base para veículos.  
-- `Carro` / `Moto`: subclasses de `Veiculo`.  
-- `Concessionaria`: gerencia listas de clientes e veículos.  
-- `Main`: ponto de entrada e interface via terminal.
+│ └── dao/
+│   └── impl/
+│       ├── ClienteDAOImpl.java
+│       ├── VeiculoDAOImpl.java
+│     ├── ClienteDAO.java
+│     ├── VeiculoDAO.java
+│ └── entities/
+│     ├── Carro.java
+│     ├── Cliente.java
+│     ├── Moto.java
+│     ├── PessoaFisica.java
+│     ├── PessoaJuridica.java
+│     ├── Veiculo.java
+├── services/
+│   └── Concessionaria.java
 
 ```
 
+## 📌 Descrição das Classes
+
+### **👥 Clientes**
+| Classe | Função |
+|--------|--------|
+| `Cliente` | Classe base com atributos comuns a todos os clientes |
+| `PessoaFisica` | Subclasse de `Cliente`, representa clientes com CPF |
+| `PessoaJuridica` | Subclasse de `Cliente`, representa clientes com CNPJ |
+
+---
+
+### **🚗 Veículos**
+| Classe | Função |
+|--------|--------|
+| `Veiculo` | Classe abstrata base para qualquer tipo de veículo |
+| `Carro` | Subclasse de `Veiculo`, representa automóveis |
+| `Moto` | Subclasse de `Veiculo`, representa motocicletas |
+
+---
+
+### **🗄 Banco de Dados**
+| Classe | Função |
+|--------|--------|
+| `ConexaoDb` | Gerencia a conexão com o PostgreSQL usando JDBC |
+| `DatabaseSetup` | Cria tabelas e inicializa o banco ao iniciar a aplicação |
+| `ClienteDAO`, `VeiculoDAO` | Interfaces responsáveis por operações CRUD |
+| `ClienteDAOImpl`, `VeiculoDAOImpl` | Implementação concreta das queries SQL |
+
+---
+
+### **🔧 Regras de Negócio**
+| Classe | Função |
+|--------|--------|
+| `Concessionaria` | Centraliza as operações de negócio (cadastro, listagem, remoção etc.) |
+
+---
+
+### **📍 Execução**
+| Classe | Função |
+|--------|--------|
+| `Main` | Ponto de entrada com menu interativo no terminal |
+
+---
+
+
 ## 🧠 Conceitos Utilizados
-- Programação Orientada a Objetos (POO)
+
+- **Programação Orientada a Objetos (POO)**
   - Herança
   - Polimorfismo
   - Encapsulamento
-- Coleções (`ArrayList`)  
-- Entrada de dados via `Scanner`  
-- Boas práticas de organização de código
+  - Classes abstratas
+- **Arquitetura em Camadas**
+  - Camada de entidades
+  - Camada de serviços
+  - Camada de persistência (DAO)
+- **JDBC + SQL**
+  - Prepared Statements
+  - CRUD no banco
+- **Coleções (`ArrayList`)**
+- **Interação via Terminal (`Scanner`)**
+- **Boas práticas de modularização e organização de pacotes**
